@@ -15,18 +15,47 @@ fn pick_random_quizzes(mut quizzes: Vec<quiz::Quiz>, count: usize) -> Vec<quiz::
     quizzes.into_iter().take(count).collect()
 }
 
+fn select_mode() -> u8 {
+    loop {
+        println!();
+        println!("Select mode:");
+        println!("1. Random 5 questions");
+        println!("2. Play all questions (in order)");
+        print!("Your choice (1 or 2): ");
+
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+
+        match input.trim() {
+            "1" => return 1,
+            "2" => return 2,
+            _ => {
+                println!("❌ Invalid choice, please enter 1 or 2.");
+            }
+        }
+    }
+}
+
 fn main() {
-    // let quizzes = quiz_bank();
+    println!("🦀 Welcome to RustQuiz!");
+    println!("-----------------------");
+
+    let mode = select_mode();
 
     let all_quizzes = quiz_bank();
 
-    // โหมดสุ่ม 5 ข้อ
-    let quizzes = pick_random_quizzes(all_quizzes, 5);
+    let quizzes = match mode {
+        1 => {
+            let count = 5.min(all_quizzes.len());
+            pick_random_quizzes(all_quizzes, count)
+        }
+        2 => all_quizzes,
+        _ => unreachable!(),
+    };
 
     let mut state = QuizState::new();
-
-    println!("🦀 Welcome to RustQuiz!");
-    println!("-----------------------");
 
     while let Some(quiz) = state.current_quiz(&quizzes) {
         println!("\n[{}] {}", quiz.id, quiz.title);
