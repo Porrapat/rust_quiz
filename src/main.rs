@@ -6,8 +6,23 @@ use std::io::{self, Write};
 use quiz::quiz_bank;
 use engine::{QuizState, AnswerResult};
 
+use rand::seq::SliceRandom;
+use rand::rng;
+
+fn pick_random_quizzes(mut quizzes: Vec<quiz::Quiz>, count: usize) -> Vec<quiz::Quiz> {
+    let mut rng = rng();
+    quizzes.shuffle(&mut rng);
+    quizzes.into_iter().take(count).collect()
+}
+
 fn main() {
-    let quizzes = quiz_bank();
+    // let quizzes = quiz_bank();
+
+    let all_quizzes = quiz_bank();
+
+    // โหมดสุ่ม 5 ข้อ
+    let quizzes = pick_random_quizzes(all_quizzes, 5);
+
     let mut state = QuizState::new();
 
     println!("🦀 Welcome to RustQuiz!");
