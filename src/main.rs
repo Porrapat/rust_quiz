@@ -3,6 +3,9 @@ mod engine;
 
 use std::io::{self, Write};
 
+// use rustquiz::quiz::quiz_bank;
+// use rustquiz::engine::QuizState;
+
 use quiz::quiz_bank;
 use engine::{QuizState, AnswerResult};
 
