@@ -1,2 +1,4 @@
 /target
 /web/target
+/cli/target
+/web/dist

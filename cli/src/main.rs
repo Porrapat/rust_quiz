@@ -1,10 +1,8 @@
-mod quiz;
-mod engine;
-
 use std::io::{self, Write};
 
-use quiz::quiz_bank;
-use engine::{QuizState, AnswerResult};
+use rust_quiz::quiz;
+use rust_quiz::quiz::quiz_bank;
+use rust_quiz::engine::{QuizState, AnswerResult};
 
 use rand::seq::SliceRandom;
 use rand::rng;
