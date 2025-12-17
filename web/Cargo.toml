@@ -6,3 +6,5 @@ edition = "2024"
 [dependencies]
 leptos = { version = "0.8.14", features = ["csr"] }
 rust_quiz = { path = ".." }
+rand = "0.8"
+getrandom = { version = "0.2", features = ["js"] }
