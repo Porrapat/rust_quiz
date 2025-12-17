@@ -1,0 +1,567 @@
+/* ============================================
+   RustQuiz - Rusty Theme
+   A beautiful, no-framework CSS theme inspired by Rust
+   ============================================ */
+
+:root {
+  /* Rust Brand Colors */
+  --rust-orange: #CE422B;
+  --rust-dark: #2C1810;
+  --rust-brown: #5C3D2E;
+  --rust-light: #F4E8E1;
+  --rust-cream: #FFF8F0;
+  
+  /* Accent Colors */
+  --rust-gold: #D4A574;
+  --rust-copper: #B87333;
+  --rust-steel: #4A4A4A;
+  --rust-iron: #6B5B4F;
+  
+  /* Semantic Colors */
+  --success: #5D9B5D;
+  --error: #C24040;
+  --warning: #E8A641;
+  --info: #5E8FB5;
+  
+  /* Gradients */
+  --gradient-rust: linear-gradient(135deg, #CE422B 0%, #A0341F 100%);
+  --gradient-warm: linear-gradient(135deg, #D4A574 0%, #CE422B 100%);
+  --gradient-dark: linear-gradient(135deg, #5C3D2E 0%, #2C1810 100%);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(44, 24, 16, 0.1);
+  --shadow-md: 0 4px 8px rgba(44, 24, 16, 0.15);
+  --shadow-lg: 0 8px 16px rgba(44, 24, 16, 0.2);
+  --shadow-xl: 0 12px 24px rgba(44, 24, 16, 0.25);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}
+
+/* ============================================
+   Reset & Base Styles
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--rust-cream);
+  color: var(--rust-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Rust Background Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(206, 66, 43, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(92, 61, 46, 0.03) 0%, transparent 50%);
+  z-index: -1;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-sm);
+  color: var(--rust-dark);
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: var(--gradient-rust);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(206, 66, 43, 0.1);
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: var(--spacing-xs);
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: var(--gradient-rust);
+  border-radius: var(--radius-sm);
+}
+
+h2 {
+  font-size: 1.875rem;
+  color: var(--rust-brown);
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--rust-iron);
+}
+
+p {
+  margin-bottom: var(--spacing-sm);
+  color: var(--rust-steel);
+  font-size: 1.05rem;
+}
+
+/* ============================================
+   Container & Layout
+   ============================================ */
+
+body > div {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   Quiz Container
+   ============================================ */
+
+body > div > div {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-xl);
+  border: 2px solid var(--rust-light);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+body > div > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-rust);
+}
+
+body > div > div:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl), 0 0 0 1px var(--rust-orange);
+}
+
+/* ============================================
+   Radio Buttons & Choices
+   ============================================ */
+
+body > div > div > div:last-child > div {
+  background: var(--rust-cream);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  border: 2px solid transparent;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+body > div > div > div:last-child > div::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--rust-orange);
+  transform: scaleY(0);
+  transition: transform var(--transition-base);
+}
+
+body > div > div > div:last-child > div:hover {
+  background: var(--rust-light);
+  border-color: var(--rust-gold);
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md);
+}
+
+body > div > div > div:last-child > div:hover::before {
+  transform: scaleY(1);
+}
+
+label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  color: var(--rust-steel);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  user-select: none;
+}
+
+body > div > div > div:last-child > div:hover label {
+  color: var(--rust-dark);
+}
+
+/* Custom Radio Buttons */
+input[type="radio"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--rust-copper);
+  border-radius: 50%;
+  margin-right: var(--spacing-sm);
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+  background: white;
+}
+
+input[type="radio"]:hover {
+  border-color: var(--rust-orange);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(206, 66, 43, 0.1);
+}
+
+input[type="radio"]:checked {
+  border-color: var(--rust-orange);
+  background: var(--gradient-rust);
+  box-shadow: 0 0 0 4px rgba(206, 66, 43, 0.15);
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: checkPop 0.3s ease-in-out forwards;
+}
+
+@keyframes checkPop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Checked state for choice container */
+body > div > div > div:last-child > div:has(input[type="radio"]:checked) {
+  background: linear-gradient(135deg, rgba(206, 66, 43, 0.08) 0%, rgba(212, 165, 116, 0.08) 100%);
+  border-color: var(--rust-orange);
+  box-shadow: var(--shadow-md);
+}
+
+body > div > div > div:last-child > div:has(input[type="radio"]:checked)::before {
+  transform: scaleY(1);
+}
+
+body > div > div > div:last-child > div:has(input[type="radio"]:checked) label {
+  color: var(--rust-dark);
+  font-weight: 600;
+}
+
+/* ============================================
+   Buttons (for future use)
+   ============================================ */
+
+.btn {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--gradient-rust);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: var(--gradient-warm);
+  color: var(--rust-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--rust-orange);
+  color: var(--rust-orange);
+}
+
+.btn-outline:hover {
+  background: var(--rust-orange);
+  color: white;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mt-3 { margin-top: var(--spacing-lg); }
+
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+
+.p-1 { padding: var(--spacing-sm); }
+.p-2 { padding: var(--spacing-md); }
+.p-3 { padding: var(--spacing-lg); }
+
+/* ============================================
+   Badge (for future use)
+   ============================================ */
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-xl);
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: var(--gradient-rust);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   Card Effects
+   ============================================ */
+
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--rust-light);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  body > div {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  body > div > div {
+    padding: var(--spacing-lg);
+  }
+  
+  body > div > div > div:last-child > div {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+  
+  body > div > div {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ============================================
+   Animations & Special Effects
+   ============================================ */
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading {
+  background: linear-gradient(
+    90deg,
+    var(--rust-light) 0%,
+    var(--rust-cream) 50%,
+    var(--rust-light) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Glow effect for interactive elements */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(206, 66, 43, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(206, 66, 43, 0.8);
+  }
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rust-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-rust);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--rust-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rust-orange);
+}
+
+/* ============================================
+   Selection Styling
+   ============================================ */
+
+::selection {
+  background: var(--rust-orange);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--rust-orange);
+  color: white;
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  body {
+    background: white;
+  }
+  
+  body::before {
+    display: none;
+  }
+  
+  body > div > div {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
