@@ -24,7 +24,7 @@ body {
 h1 {
   color: var(--rust-orange);
   font-weight: 700;
-  border-bottom: 3px solid var(--rust-orange);
+  /* border-bottom: 3px solid var(--rust-orange); */
   padding-bottom: 0.5rem;
   display: inline-block;
 }
@@ -51,6 +51,17 @@ code {
 
 .btn-primary:hover {
   background-color: #A0341F;
+  border-color: #A0341F;
+}
+
+.btn-light {
+  border-color: #999;
+}
+.btn-rust {
+  border-color: var(--rust-orange);
+}
+
+.btn-rust:hover {
   border-color: #A0341F;
 }
 

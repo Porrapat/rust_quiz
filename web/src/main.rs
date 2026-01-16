@@ -29,9 +29,9 @@ fn App() -> impl IntoView {
 
     view! {
         <div class="container py-5">
-            <div class="text-center mb-4">
-                <h1 class="display-4"><i class="bi bi-gear-fill"></i> " Rust Quiz"</h1>
-            </div>
+            // <div class="text-center mb-4">
+            //     <h1 class="display-4"><i class="bi bi-gear-fill"></i> " Rust Quiz"</h1>
+            // </div>
             
             {move || {
                 match game_mode.get() {
@@ -40,6 +40,7 @@ fn App() -> impl IntoView {
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <div class="card p-4">
+                                        <h1 class="text-center"><i class="bi bi-gear-fill"></i>" Rust Quiz"</h1>
                                         <h2 class="text-center mb-4">"Choose Your Quiz Mode"</h2>
                                         <div class="d-grid gap-3">
                                             <button 
@@ -80,6 +81,17 @@ fn App() -> impl IntoView {
                                                 class="img-fluid mb-3"
                                                 style="max-width: 300px;"
                                             />
+                                        </div>
+                                        <div>
+                                            <a href="https://github.com/Porrapat/rust_quiz" target="_blank" class="btn btn-light w-100 mb-4">
+                                                <i class="fab fa-github"></i> GitHub Repository
+                                            </a>
+                                            <a href="https://www.youtube.com/@Rustfully/posts" target="_blank" class="btn btn-rust w-100 mb-2">
+                                                <i class="fab fa-github"></i> Thank you, questions from Rustfully
+                                            </a>
+                                            <a href="https://www.tutorialspoint.com/rust" target="_blank" class="btn btn-rust w-100 mb-2">
+                                                <i class="fab fa-github"></i> Also, Tutorialspoints - Rust
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
