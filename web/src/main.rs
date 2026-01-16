@@ -43,7 +43,7 @@ fn App() -> impl IntoView {
                                         <h2 class="text-center mb-4">"Choose Your Quiz Mode"</h2>
                                         <div class="d-grid gap-3">
                                             <button 
-                                                class="btn btn-primary btn-lg"
+                                                class="btn btn-outline-primary btn-lg"
                                                 on:click=move |_| {
                                                     let mut rng = thread_rng();
                                                     let mut selected: Vec<_> = all_quizzes.get_value().clone();
@@ -72,6 +72,14 @@ fn App() -> impl IntoView {
                                             >
                                                 <i class="bi bi-journal-text"></i> " All " {all_quizzes.get_value().len()} " Questions"
                                             </button>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <img 
+                                                src="images/ferris-miku-logo.png" 
+                                                alt="Ferris Miku - Rust Mascot"
+                                                class="img-fluid mb-3"
+                                                style="max-width: 300px;"
+                                            />
                                         </div>
                                     </div>
                                 </div>
