@@ -28,47 +28,52 @@ fn App() -> impl IntoView {
     let (score, set_score) = signal(0usize);
 
     view! {
-        <div>
-            <h1>"Rust Quiz"</h1>
+        <div class="container py-5">
+            <div class="text-center mb-4">
+                <h1 class="display-4"><i class="bi bi-gear-fill"></i> " Rust Quiz"</h1>
+            </div>
+            
             {move || {
                 match game_mode.get() {
                     GameMode::NotSelected => {
                         view! {
-                            <div style="text-align: center; margin-top: 2rem;">
-                                <h2 style="color: var(--rust-orange); margin-bottom: 2rem;">"Choose Your Quiz Mode"</h2>
-                                <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 0 auto;">
-                                    <button 
-                                        class="btn btn-primary"
-                                        style="padding: 1.5rem; font-size: 1.1rem;"
-                                        on:click=move |_| {
-                                            let mut rng = thread_rng();
-                                            let mut selected: Vec<_> = all_quizzes.get_value().clone();
-                                            selected.shuffle(&mut rng);
-                                            selected.truncate(5);
-                                            set_quiz_list.set(selected);
-                                            set_game_mode.set(GameMode::Random5);
-                                            set_current_index.set(0);
-                                            set_selected_answer.set(None);
-                                            set_feedback.set(None);
-                                            set_score.set(0);
-                                        }
-                                    >
-                                        "🎲 Random 5 Questions"
-                                    </button>
-                                    <button 
-                                        class="btn btn-outline"
-                                        style="padding: 1.5rem; font-size: 1.1rem;"
-                                        on:click=move |_| {
-                                            set_quiz_list.set(all_quizzes.get_value().clone());
-                                            set_game_mode.set(GameMode::AllQuestions);
-                                            set_current_index.set(0);
-                                            set_selected_answer.set(None);
-                                            set_feedback.set(None);
-                                            set_score.set(0);
-                                        }
-                                    >
-                                        {format!("📚 All {} Questions", all_quizzes.get_value().len())}
-                                    </button>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="card p-4">
+                                        <h2 class="text-center mb-4">"Choose Your Quiz Mode"</h2>
+                                        <div class="d-grid gap-3">
+                                            <button 
+                                                class="btn btn-primary btn-lg"
+                                                on:click=move |_| {
+                                                    let mut rng = thread_rng();
+                                                    let mut selected: Vec<_> = all_quizzes.get_value().clone();
+                                                    selected.shuffle(&mut rng);
+                                                    selected.truncate(5);
+                                                    set_quiz_list.set(selected);
+                                                    set_game_mode.set(GameMode::Random5);
+                                                    set_current_index.set(0);
+                                                    set_selected_answer.set(None);
+                                                    set_feedback.set(None);
+                                                    set_score.set(0);
+                                                }
+                                            >
+                                                <i class="bi bi-dice-5"></i> " Random 5 Questions"
+                                            </button>
+                                            <button 
+                                                class="btn btn-outline-primary btn-lg"
+                                                on:click=move |_| {
+                                                    set_quiz_list.set(all_quizzes.get_value().clone());
+                                                    set_game_mode.set(GameMode::AllQuestions);
+                                                    set_current_index.set(0);
+                                                    set_selected_answer.set(None);
+                                                    set_feedback.set(None);
+                                                    set_score.set(0);
+                                                }
+                                            >
+                                                <i class="bi bi-journal-text"></i> " All " {all_quizzes.get_value().len()} " Questions"
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         }.into_any()
@@ -88,14 +93,18 @@ fn App() -> impl IntoView {
                             let quiz_explanation = quiz.explanation;
                             
                             view! {
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                        <p style="color: var(--rust-copper); font-weight: 600;">
-                                            "Question " {current} " of " {total} " | Score: " {score.get()} "/" {index}
-                                        </p>
+                                <div class="card p-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <span class="badge bg-secondary me-2">
+                                                "Question " {current} " of " {total}
+                                            </span>
+                                            <span class="badge bg-primary">
+                                                "Score: " {score.get()} "/" {index}
+                                            </span>
+                                        </div>
                                         <button 
-                                            class="btn btn-outline"
-                                            style="padding: 0.5rem 1rem; font-size: 0.9rem;"
+                                            class="btn btn-outline-secondary btn-sm"
                                             on:click=move |_| {
                                                 set_game_mode.set(GameMode::NotSelected);
                                                 set_quiz_list.set(Vec::new());
@@ -105,41 +114,40 @@ fn App() -> impl IntoView {
                                                 set_score.set(0);
                                             }
                                         >
-                                            "← Back to Menu"
+                                            <i class="bi bi-arrow-left"></i> " Back to Menu"
                                         </button>
                                     </div>
-                                    <h2>{quiz_title}</h2>
-                                    <p>{quiz_question}</p>
+                                    
+                                    <h2 class="h4 mb-3">{quiz_title}</h2>
+                                    <p class="lead">{quiz_question}</p>
                                     
                                     {move || {
                                         if let Some(code) = quiz_code {
                                             view! {
-                                                <pre style="background: var(--rust-bg); padding: 1rem; border-radius: var(--radius-md); border-left: 4px solid var(--rust-orange); overflow-x: auto; margin: 1rem 0;">
-                                                    <code style="color: var(--rust-text); font-family: 'Courier New', monospace; font-size: 0.95rem;">
-                                                        {code}
-                                                    </code>
-                                                </pre>
+                                                <pre class="mb-3"><code>{code}</code></pre>
                                             }.into_any()
                                         } else {
                                             view! { <div></div> }.into_any()
                                         }
                                     }}
                                     
-                                    <div>
+                                    <div class="mb-3">
                                         {quiz_choices.iter().enumerate().map(|(i, choice)| {
                                             let choice_text = choice.to_string();
                                             view! {
-                                                <div>
-                                                    <label>
-                                                        <input 
-                                                            type="radio" 
-                                                            name="answer" 
-                                                            value={i}
-                                                            disabled=move || feedback.get().is_some()
-                                                            prop:checked=move || selected_answer.get() == Some(i)
-                                                            on:change=move |_| set_selected_answer.set(Some(i))
-                                                        />
-                                                        " " {choice_text}
+                                                <div class="form-check mb-2 p-3 border rounded">
+                                                    <input 
+                                                        class="form-check-input"
+                                                        type="radio" 
+                                                        name="answer" 
+                                                        id=format!("choice-{}", i)
+                                                        value={i}
+                                                        disabled=move || feedback.get().is_some()
+                                                        prop:checked=move || selected_answer.get() == Some(i)
+                                                        on:change=move |_| set_selected_answer.set(Some(i))
+                                                    />
+                                                    <label class="form-check-label w-100" for=format!("choice-{}", i)>
+                                                        {choice_text}
                                                     </label>
                                                 </div>
                                             }
@@ -149,18 +157,18 @@ fn App() -> impl IntoView {
                                     {move || {
                                         if let Some((is_correct, explanation)) = feedback.get() {
                                             view! {
-                                                <div style=format!(
-                                                    "margin-top: 1.5rem; padding: 1rem; border-radius: var(--radius-md); background: {}; border: 2px solid {};",
-                                                    if is_correct { "rgba(93, 155, 93, 0.1)" } else { "rgba(194, 64, 64, 0.1)" },
-                                                    if is_correct { "var(--success)" } else { "var(--error)" }
-                                                )>
-                                                    <h3 style=format!(
-                                                        "color: {}; margin-bottom: 0.5rem;",
-                                                        if is_correct { "var(--success)" } else { "var(--error)" }
-                                                    )>
-                                                        {if is_correct { "✓ Correct!" } else { "✗ Incorrect" }}
-                                                    </h3>
-                                                    <p style="color: var(--rust-steel);">{explanation}</p>
+                                                <div class=format!("alert alert-{} d-flex align-items-start", 
+                                                    if is_correct { "success" } else { "danger" })
+                                                >
+                                                    <i class=format!("bi bi-{} me-2 fs-4", 
+                                                        if is_correct { "check-circle-fill" } else { "x-circle-fill" })
+                                                    ></i>
+                                                    <div>
+                                                        <h4 class="alert-heading">
+                                                            {if is_correct { "Correct!" } else { "Incorrect" }}
+                                                        </h4>
+                                                        <p class="mb-0">{explanation}</p>
+                                                    </div>
                                                 </div>
                                             }.into_any()
                                         } else {
@@ -168,7 +176,7 @@ fn App() -> impl IntoView {
                                         }
                                     }}
                                     
-                                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                                    <div class="d-flex gap-2 mt-3">
                                         {move || {
                                             let feedback_value = feedback.get();
                                             if feedback_value.is_none() {
@@ -187,16 +195,16 @@ fn App() -> impl IntoView {
                                                                 }
                                                             }
                                                         >
-                                                            "Submit Answer"
+                                                            <i class="bi bi-check-lg"></i> " Submit Answer"
                                                         </button>
                                                         <button 
-                                                            class="btn btn-outline"
+                                                            class="btn btn-outline-secondary"
                                                             disabled=move || selected_answer.get().is_none()
                                                             on:click=move |_| {
                                                                 set_selected_answer.set(None);
                                                             }
                                                         >
-                                                            "Clear Answer"
+                                                            <i class="bi bi-arrow-counterclockwise"></i> " Clear"
                                                         </button>
                                                     </>
                                                 }.into_any()
@@ -210,16 +218,21 @@ fn App() -> impl IntoView {
                                                             set_feedback.set(None);
                                                         }
                                                     >
-                                                        "Next Question"
+                                                        "Next Question " <i class="bi bi-arrow-right"></i>
                                                     </button>
                                                 }.into_any()
                                             } else {
                                                 view! {
-                                                    <div>
-                                                        <p style="font-size: 1.2rem; font-weight: 600; color: var(--rust-orange); margin-bottom: 1rem;">
-                                                            "Quiz Complete! Final Score: " {score.get()} "/" {total}
-                                                        </p>
-                                                        <div style="display: flex; gap: 1rem;">
+                                                    <div class="w-100">
+                                                        <div class="alert alert-info text-center">
+                                                            <h3 class="alert-heading">
+                                                                <i class="bi bi-trophy-fill"></i> " Quiz Complete!"
+                                                            </h3>
+                                                            <p class="fs-2 mb-0">
+                                                                "Final Score: " {score.get()} "/" {total}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex gap-2 justify-content-center">
                                                             <button 
                                                                 class="btn btn-primary"
                                                                 on:click=move |_| {
@@ -231,28 +244,28 @@ fn App() -> impl IntoView {
                                                                     set_score.set(0);
                                                                 }
                                                             >
-                                                                "Back to Menu"
+                                                                <i class="bi bi-house-fill"></i> " Back to Menu"
                                                             </button>
                                                             <button 
-                                                                class="btn btn-outline"
+                                                                class="btn btn-outline-primary"
                                                                 on:click=move |_| {
-                                                                let current_mode = game_mode.get();
-                                                                if current_mode == GameMode::Random5 {
-                                                                    let mut rng = thread_rng();
-                                                                    let mut selected: Vec<_> = all_quizzes.get_value().clone();
-                                                                    selected.shuffle(&mut rng);
-                                                                    selected.truncate(5);
-                                                                    set_quiz_list.set(selected);
-                                                                } else {
-                                                                    set_quiz_list.set(all_quizzes.get_value().clone());
-                                                                }
+                                                                    let current_mode = game_mode.get();
+                                                                    if current_mode == GameMode::Random5 {
+                                                                        let mut rng = thread_rng();
+                                                                        let mut selected: Vec<_> = all_quizzes.get_value().clone();
+                                                                        selected.shuffle(&mut rng);
+                                                                        selected.truncate(5);
+                                                                        set_quiz_list.set(selected);
+                                                                    } else {
+                                                                        set_quiz_list.set(all_quizzes.get_value().clone());
+                                                                    }
                                                                     set_current_index.set(0);
                                                                     set_selected_answer.set(None);
                                                                     set_feedback.set(None);
                                                                     set_score.set(0);
                                                                 }
                                                             >
-                                                                "Play Again"
+                                                                <i class="bi bi-arrow-repeat"></i> " Play Again"
                                                             </button>
                                                         </div>
                                                     </div>
@@ -264,8 +277,8 @@ fn App() -> impl IntoView {
                             }.into_any()
                         } else {
                             view! {
-                                <div>
-                                    <p>"No quiz available"</p>
+                                <div class="alert alert-warning">
+                                    <i class="bi bi-exclamation-triangle"></i> " No quiz available"
                                 </div>
                             }.into_any()
                         }
