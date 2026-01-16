@@ -83,11 +83,14 @@ fn App() -> impl IntoView {
                                                 <i class="fab fa-github"></i> GitHub Repository
                                             </a>
                                             <a href="https://www.youtube.com/@Rustfully/posts" target="_blank" class="btn btn-rust w-100 mb-2">
-                                                <i class="fab fa-github"></i> Thank you, questions from Rustfully
+                                                <i class="fab fa-github"></i> <img src="images/rustfully-logo.png" style="width:30px;margin-right:4px" />Special thanks to Rustfully for the questions
                                             </a>
                                             <a href="https://www.tutorialspoint.com/rust" target="_blank" class="btn btn-rust w-100 mb-2">
-                                                <i class="fab fa-github"></i> Also, Tutorialspoints - Rust
+                                                <i class="fab fa-github"></i> Also inspired by Tutorialspoints - Rust
                                             </a>
+                                        </div>
+                                        <div class="text-center">
+                                            <strong>Version: 0.1.0</strong>
                                         </div>
                                     </div>
                                 </div>
