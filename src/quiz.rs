@@ -60,9 +60,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
             title: "String Length and Shadowing",
             question: "What will the following code output in Rust?",
             code: Some(
-                "let chars = \"I love Rust!\";
-                let chars = chars.len();
-                println!(\"Total chars: {}\", chars);"
+                "let chars = \"I love Rust!\";\nlet chars = chars.len();\nprintln!(\"Total chars: {}\", chars);"
             ),
             choices: vec![
                 "Total chars: 10",
@@ -80,8 +78,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
             title: "Integer Range Limits (i8)",
             question: "What will the following code output in Rust?",
             code: Some(
-                "let n: i8 = 1_000;
-                println!(\"n={}\", n);"
+                "let n: i8 = 1_000;\nprintln!(\"n={}\", n);"
             ),
             choices: vec![
                 "n=1000",
@@ -115,8 +112,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
             title: "Centering with Formatting Specifiers",
             question: "What will the following code output in Rust?",
             code: Some(
-                "let var = \"Rust\";
-        println!(\"{var:^10}\");",
+                "let var = \"Rust\";\nprintln!(\"{var:^10}\");",
             ),
             choices: vec![
                 "^^^Rust^^^",
@@ -134,8 +130,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
             title: "Array Initialization and Debug Print",
             question: "What will the following code output in Rust?",
             code: Some(
-                "let unknown = [\"Rust\"; 3];
-                println!(\"{:?}\", unknown);",
+                "let unknown = [\"Rust\"; 3];\nprintln!(\"{:?}\", unknown);",
             ),
             choices: vec![
                 "\"t\"",
@@ -153,9 +148,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
             title: "If Expression Assignment",
             question: "What will the following code output in Rust?",
             code: Some(
-                "let input = \"Rust\";
-                let text = if input.len() == 4 {\"YES\"} else {\"NO\"};
-                println!(\"{}\", text)"
+                "let input = \"Rust\";\nlet text = if input.len() == 4 {\"YES\"} else {\"NO\"};\nprintln!(\"{}\", text)"
             ),
             choices: vec![
                 "YES", // Correct choice
@@ -189,9 +182,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
             title: "Ownership and Move Semantics",
             question: "What will the following code output in Rust?",
             code: Some(
-                "let original = String::from(\"Bob\");
-                let copy = original;
-                // println!(\"1. {}, 2. {}\", original, copy);"
+                "let original = String::from(\"Bob\");\nlet copy = original;\nprintln!(\"1. {}, 2. {}\", original, copy);"
             ),
             choices: vec![
                 "1. {original}, 2. {copy}",
@@ -267,14 +258,14 @@ pub fn quiz_bank() -> Vec<Quiz> {
             question: "What will the following code output in Rust?",
             code: Some(
                 "fn main() {
-                    let name = String::from(\"Bob\");
-                    greet(name);
-                    greet(name);
-                }
+\tlet name = String::from(\"Bob\");
+\tgreet(name);
+\tgreet(name);
+}
 
-                fn greet(name: String) {
-                    println!(\"Hello, {}!\", name);
-                }"
+fn greet(name: String) {
+\tprintln!(\"Hello, {}!\", name);
+}"
             ),
             choices: vec![
                 "Hello, Bob! Hello, Bob!",

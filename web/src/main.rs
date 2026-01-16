@@ -118,8 +118,7 @@ fn App() -> impl IntoView {
                                         </button>
                                     </div>
                                     
-                                    <h2 class="h4 mb-3">{quiz_title}</h2>
-                                    <p class="lead">{quiz_question}</p>
+                                    <h2 class="h4 mb-3">{quiz_question}</h2>
                                     
                                     {move || {
                                         if let Some(code) = quiz_code {
