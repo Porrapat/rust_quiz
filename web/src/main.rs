@@ -85,7 +85,7 @@ fn App() -> impl IntoView {
                             let quiz = &quizzes[index];
                             let total = quizzes.len();
                             let current = index + 1;
-                            let quiz_title = quiz.title;
+                            // let quiz_title = quiz.title;
                             let quiz_question = quiz.question;
                             let quiz_code = quiz.code;
                             let quiz_choices = quiz.choices.clone();
