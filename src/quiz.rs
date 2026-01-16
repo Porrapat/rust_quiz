@@ -219,7 +219,7 @@ pub fn quiz_bank() -> Vec<Quiz> {
                 "let mut count = 0;
 let result = loop {
     count += 2;
-    if count > 10 {
+    if count > 5 {
         break count * 2;
     }
 };
