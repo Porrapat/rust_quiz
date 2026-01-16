@@ -217,13 +217,13 @@ pub fn quiz_bank() -> Vec<Quiz> {
             question: "What will the following code output in Rust?",
             code: Some(
                 "let mut count = 0;
-                let result = loop {
-                    count += 2;
-                    if count > 10 {
-                        break count * 2;
-                    }
-                };
-                println!(\"{}\", result);"
+let result = loop {
+    count += 2;
+    if count > 10 {
+        break count * 2;
+    }
+};
+println!(\"{}\", result);"
             ),
             choices: vec![
                 "6",
@@ -284,9 +284,9 @@ fn greet(name: String) {
             question: "What would be the correct way to instantiate this struct in Rust?\n\nstruct Rectangle { width: u32, height: u32 }",
             code: Some(
                 "struct Rectangle {
-                    width: u32,
-                    height: u32,
-                }"
+    width: u32,
+    height: u32,
+}"
             ),
             choices: vec![
                 "Rectangle(10, 20);",
@@ -304,8 +304,7 @@ fn greet(name: String) {
             title: "Option::unwrap() on None",
             question: "What will happen if we try to run this code in Rust?",
             code: Some(
-                "let value: Option<u8> = None;
-                let unwrapped = value.unwrap();"
+                "let value: Option<u8> = None;\nlet unwrapped = value.unwrap();"
             ),
             choices: vec![
                 "The program will print '0' to the console.",
@@ -372,8 +371,8 @@ fn greet(name: String) {
             question: "What will happen when we run this code in Rust?",
             code: Some(
                 "let x = 42;
-                let y = x;
-                dbg!(x, y);"
+let y = x;
+dbg!(x, y);"
             ),
             choices: vec![
                 "Only 'y' is printed, since 'x' is moved.",
