@@ -29,10 +29,6 @@ fn App() -> impl IntoView {
 
     view! {
         <div class="container py-5">
-            // <div class="text-center mb-4">
-            //     <h1 class="display-4"><i class="bi bi-gear-fill"></i> " Rust Quiz"</h1>
-            // </div>
-            
             {move || {
                 match game_mode.get() {
                     GameMode::NotSelected => {
@@ -40,7 +36,7 @@ fn App() -> impl IntoView {
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <div class="card p-4">
-                                        <h1 class="text-center"><i class="bi bi-gear-fill"></i>" Rust Quiz"</h1>
+                                        <img src="images/rust-quiz-full-logo.png" alt="Rust Quiz Logo" style="width:200px;margin: 20px auto;" />
                                         <h2 class="text-center mb-4">"Choose Your Quiz Mode"</h2>
                                         <div class="d-grid gap-3">
                                             <button 
