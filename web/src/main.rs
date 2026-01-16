@@ -85,7 +85,6 @@ fn App() -> impl IntoView {
                             let quiz = &quizzes[index];
                             let total = quizzes.len();
                             let current = index + 1;
-                            // let quiz_title = quiz.title;
                             let quiz_question = quiz.question;
                             let quiz_code = quiz.code;
                             let quiz_choices = quiz.choices.clone();
@@ -100,7 +99,7 @@ fn App() -> impl IntoView {
                                                 "Question " {current} " of " {total}
                                             </span>
                                             <span class="badge bg-primary">
-                                                "Score: " {score.get()} "/" {index}
+                                                "Score: " {score.get()}
                                             </span>
                                         </div>
                                         <button 
