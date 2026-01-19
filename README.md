@@ -112,7 +112,22 @@ cargo test
 
 This project is open source and available under the MIT License.
 
-## 🤝 Contributing
+## AI Tools Used
+
+I use multiple AI tools:
+
+- **ChatGPT**  
+  Used for ideas, inspiration, conceptual discussions, and parsing information (including extracting text or structure from images or videos when needed).
+
+- **Gemini**  
+  Used for double-checking content and generating visual assets such as logos and illustrative images.
+
+- **Claude (via OpenRouter, VSCode + Cline)**  
+  Used as the primary coding assistant for drafting and refining Rust code.
+
+All outputs from AI tools were reviewed, tested, and manually integrated by me.
+
+## 🤝 Contributing and project roadmap!
 
 Contributions are welcome! Feel free to:
 - Add new quiz questions
@@ -120,6 +135,11 @@ Contributions are welcome! Feel free to:
 - Enhance the UI/UX
 - Fix bugs
 - Add new features
+
+Roadmap
+- Add Tauri for Desktop using.
+- Make dynamic questions store (JSON and Databases)
+- Add more quiz structure. (Fill in the blank, drag and drop, etc.)
 
 ## 📧 Contact
 
