@@ -1,0 +1,12 @@
+{
+  "id": "ownership-001",
+  "level": "beginner",
+  "topic": "ownership",
+  "question": "Which code compiles?",
+  "choices": [
+    { "id": "A", "code": "let a = s; let b = s;" },
+    { "id": "B", "code": "let a = s.clone(); let b = s;" }
+  ],
+  "answer": "B",
+  "explanation": "Ownership is moved unless cloned."
+}
