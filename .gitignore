@@ -2,3 +2,5 @@
 /web/target
 /cli/target
 /web/dist
+/testing/dist
+/testing/target
