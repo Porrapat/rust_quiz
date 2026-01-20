@@ -73,6 +73,13 @@ cd web
 trunk serve --open
 ```
 
+or
+
+```bash
+cd web
+trunk serve --open --watch ../src
+```
+
 This will:
 - Build the WebAssembly application
 - Start a local development server (default: http://127.0.0.1:8080)
