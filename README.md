@@ -61,7 +61,9 @@ cargo build --release
 Run the command-line quiz:
 
 ```bash
-cargo run --bin cli
+cargo install cargo-watch
+cd cli
+cargo watch -w ../src -w src -x run
 ```
 
 ### Web Version
