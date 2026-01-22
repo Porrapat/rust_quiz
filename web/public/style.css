@@ -81,3 +81,12 @@ code {
 * {
   transition: all 0.2s ease-in-out;
 }
+
+.form-check-my label {
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+
+.form-check-my label:hover {
+  background-color: #f8f9fa;
+}

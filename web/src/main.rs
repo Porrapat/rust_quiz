@@ -154,19 +154,18 @@ fn App() -> impl IntoView {
                                         {quiz_choices.iter().enumerate().map(|(i, choice)| {
                                             let choice_text = choice.to_string();
                                             view! {
-                                                <div class="form-check mb-2 p-3 border rounded">
-                                                    <input 
-                                                        class="form-check-input"
-                                                        type="radio" 
-                                                        name="answer" 
-                                                        id=format!("choice-{}", i)
-                                                        value={i}
-                                                        disabled=move || feedback.get().is_some()
-                                                        prop:checked=move || selected_answer.get() == Some(i)
-                                                        on:change=move |_| set_selected_answer.set(Some(i))
-                                                    />
-                                                    <label class="form-check-label w-100" for=format!("choice-{}", i)>
-                                                        {choice_text}
+                                                <div class="form-check rounded ps-0">
+                                                    <label class="form-check mb-2 w-100 border rounded p-3 d-flex gap-2 align-items-start">
+                                                        <input
+                                                            class="form-check-input mt-1"
+                                                            type="radio"
+                                                            name="answer"
+                                                            value={i}
+                                                            disabled=move || feedback.get().is_some()
+                                                            prop:checked=move || selected_answer.get() == Some(i)
+                                                            on:change=move |_| set_selected_answer.set(Some(i))
+                                                        />
+                                                        <span>{choice_text}</span>
                                                     </label>
                                                 </div>
                                             }
