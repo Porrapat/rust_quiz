@@ -79,7 +79,7 @@ or
 
 ```bash
 cd web
-trunk serve --open --watch ../src
+trunk serve --open --watch ../src --watch . 
 ```
 
 This will:
