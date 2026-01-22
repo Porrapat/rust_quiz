@@ -28,7 +28,7 @@ fn App() -> impl IntoView {
     let (score, set_score) = signal(0usize);
 
     view! {
-        <div class="container py-5">
+        <div class="container py-1">
             {move || {
                 match game_mode.get() {
                     GameMode::NotSelected => {
@@ -89,8 +89,10 @@ fn App() -> impl IntoView {
                                                 <i class="fab fa-github"></i> Also inspired by Tutorialspoints - Rust
                                             </a>
                                         </div>
-                                        <div class="text-center">
-                                            <strong>Version: 0.1.0</strong>
+                                        <div class="text-center py-2">
+                                            <div>"AI-assisted. Human-approved."</div>
+                                            <div class="mb-2">"No Crap. Just Crab. 🦀"</div>
+                                            <h6>Version: 0.1.0</h6>
                                         </div>
                                     </div>
                                 </div>
