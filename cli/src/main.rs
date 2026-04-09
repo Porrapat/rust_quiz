@@ -75,10 +75,9 @@ fn main() {
 
     while let Some(quiz) = state.current_quiz(&quizzes) {
         println!(
-            "{} [{}/{}]",
+            "{} [{}]",
             "Question".bright_black(),
             quiz.id,
-            quizzes.len()
         );
         println!("{} {}", "Title:".green().bold(), quiz.title);
         println!("{} {}\n", "Question:".yellow().bold(), quiz.question);
