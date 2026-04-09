@@ -1,8 +1,11 @@
 [package]
-name = "cli"
+name = "rust_quiz_cli"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+clearscreen = "4.0.6"
+colored = "3.1.1"
+dialoguer = "0.12.0"
 rand = "0.9.2"
 rust_quiz = { path = ".." }
