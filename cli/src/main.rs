@@ -1,11 +1,17 @@
-use std::io::{self, Write};
+use dialoguer::Select;
 
+use colored::*;
+use rust_quiz::engine::{AnswerResult, QuizState};
 use rust_quiz::quiz;
 use rust_quiz::quiz::quiz_bank;
-use rust_quiz::engine::{QuizState, AnswerResult};
 
-use rand::seq::SliceRandom;
 use rand::rng;
+use rand::seq::SliceRandom;
+
+enum GameMode {
+    Rand5, // Random 5 questions
+    All,   // Play all questions
+}
 
 fn pick_random_quizzes(mut quizzes: Vec<quiz::Quiz>, count: usize) -> Vec<quiz::Quiz> {
     let mut rng = rng();
@@ -13,88 +19,106 @@ fn pick_random_quizzes(mut quizzes: Vec<quiz::Quiz>, count: usize) -> Vec<quiz::
     quizzes.into_iter().take(count).collect()
 }
 
-fn select_mode() -> u8 {
-    loop {
-        println!();
-        println!("Select mode:");
-        println!("1. Random 5 questions");
-        println!("2. Play all questions (in order)");
-        print!("Your choice (1 or 2): ");
+fn select_mode() -> GameMode {
+    let items = vec!["Random 5 questions", "Play all questions (in order)"];
 
-        io::stdout().flush().unwrap();
+    let selection = Select::new()
+        .with_prompt("Select mode")
+        .items(&items)
+        .interact()
+        .unwrap();
 
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).unwrap();
-
-        match input.trim() {
-            "1" => return 1,
-            "2" => return 2,
-            _ => {
-                println!("❌ Invalid choice, please enter 1 or 2.");
-            }
-        }
+    match selection {
+        0 => GameMode::Rand5,
+        1 => GameMode::All,
+        _ => unreachable!(),
     }
 }
 
 fn main() {
-    println!("🦀 Welcome to RustQuiz!");
-    println!("-----------------------");
+    println!(
+        r#"
+               🦀 Welcome to
+    ____             __                 _    
+   / __ \__  _______/ /_   ____ ___  __(_)___
+  / /_/ / / / / ___/ __/  / __ `/ / / / /_  /
+ / _, _/ /_/ (__  ) /_   / /_/ / /_/ / / / /_
+/_/ |_|\__,_/____/\__/   \__, /\__,_/_/ /___/
+                           /_/               
+    "#
+    );
+    println!(
+        "{}\n",
+        "Use arrow keys to navigate between choices"
+            .yellow()
+            .bold()
+            .dimmed()
+    );
 
     let mode = select_mode();
 
     let all_quizzes = quiz_bank();
 
     let quizzes = match mode {
-        1 => {
+        GameMode::Rand5 => {
             let count = 5.min(all_quizzes.len());
             pick_random_quizzes(all_quizzes, count)
         }
-        2 => all_quizzes,
-        _ => unreachable!(),
+        GameMode::All => all_quizzes,
     };
 
     let mut state = QuizState::new();
 
+    clearscreen::clear().unwrap_or_else(|_| {
+        print!("\x1B[2J\x1B[1;1H");
+    });
+
     while let Some(quiz) = state.current_quiz(&quizzes) {
-        println!("\n[{}] {}", quiz.id, quiz.title);
-        println!("{}", quiz.question);
+        println!(
+            "{} [{}]",
+            "Question".bright_black(),
+            quiz.id,
+        );
+        println!("{} {}", "Title:".green().bold(), quiz.title);
+        println!("{} {}\n", "Question:".yellow().bold(), quiz.question);
 
         if let Some(code) = quiz.code {
-            println!("\n--- code ---");
-            println!("{}", code);
-            println!("------------");
+            println!("{}\n", code.dimmed().italic());
         }
 
-        for (i, choice) in quiz.choices.iter().enumerate() {
-            println!("  {}. {}", i + 1, choice);
-        }
-
-        print!("\nYour answer (1-{}): ", quiz.choices.len());
-        io::stdout().flush().unwrap();
-
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).unwrap();
-
-        let choice = match input.trim().parse::<usize>() {
-            Ok(n) if n > 0 && n <= quiz.choices.len() => n - 1,
-            _ => {
-                println!("❌ Invalid input, try again.");
-                continue;
-            }
-        };
+        let choice = Select::new().items(&quiz.choices).interact().unwrap();
 
         match state.answer(&quizzes, choice) {
             AnswerResult::Correct => {
-                println!("✅ Correct!");
+                println!("{}", "Correct answer".green());
             }
             AnswerResult::Wrong => {
-                println!("❌ Wrong!");
-                println!("👉 Explanation: {}", quiz.explanation);
+                println!("{}", "Wrong answer".red());
+                println!(
+                    "{} \"{}\"\n",
+                    "Correct answer is:".cyan(),
+                    quiz.choices[quiz.correct]
+                );
             }
             AnswerResult::Finished => break,
         }
+
+        println!("{} {}", "Explanation:".cyan().bold(), quiz.explanation);
+
+        println!("{}", "\nPress Enter to continue...".dimmed());
+        let mut input = String::new();
+        std::io::stdin().read_line(&mut input).ok();
+
+        clearscreen::clear().unwrap_or_else(|_| {
+            print!("\x1B[2J\x1B[1;1H");
+        });
     }
 
     println!("\n🎉 Quiz finished!");
     println!("Score: {}/{}", state.score, quizzes.len());
+    if state.score > quizzes.len() / 2 {
+        println!("{}", "Great job!".green());
+    } else {
+        println!("{}", "Better luck next time.".yellow());
+    }
 }
